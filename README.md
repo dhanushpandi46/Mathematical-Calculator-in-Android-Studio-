@@ -46,8 +46,264 @@ Java event-handling methods are used to perform the selected mathematical operat
 8.	Display the calculated result.
 9.	Repeat the process for another operation.
 10.	Stop.
+    
+# PROGRAM
+
+# XML
+
+package com.example.calculator;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText num1, num2;
+    Button add, sub, mul, div, clear;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        num1 = findViewById(R.id.num1);
+        num2 = findViewById(R.id.num2);
+
+        add = findViewById(R.id.btnAdd);
+        sub = findViewById(R.id.btnSub);
+        mul = findViewById(R.id.btnMul);
+        div = findViewById(R.id.btnDiv);
+        clear = findViewById(R.id.btnClear);
+
+        result = findViewById(R.id.txtResult);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('+');
+            }
+        });
+
+        sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('-');
+            }
+        });
+
+        mul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('*');
+            }
+        });
+
+        div.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('/');
+            }
+        });
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num1.setText("");
+                num2.setText("");
+                result.setText("Result: ");
+                num1.requestFocus();
+            }
+        });
+    }
+
+    private void calculate(char operator) {
+
+        String value1 = num1.getText().toString().trim();
+        String value2 = num2.getText().toString().trim();
+
+        if (value1.isEmpty() || value2.isEmpty()) {
+            Toast.makeText(this,
+                    "Please enter both numbers",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            double a = Double.parseDouble(value1);
+            double b = Double.parseDouble(value2);
+            double answer = 0;
+
+            switch (operator) {
+
+                case '+':
+                    answer = a + b;
+                    break;
+
+                case '-':
+                    answer = a - b;
+                    break;
+
+                case '*':
+                    answer = a * b;
+                    break;
+
+                case '/':
+                    if (b == 0) {
+                        result.setText("Result: Cannot divide by zero");
+                        return;
+                    }
+                    answer = a / b;
+                    break;
+            }
+
+            DecimalFormat df = new DecimalFormat("0.##########");
+            result.setText("Result: " + df.format(answer));
+
+        } catch (NumberFormatException e) {
+            result.setText("Result: Invalid input");
+        }
+    }
+}
+
+# MAIN ACTIVITY JAVA
+
+package com.example.calculator;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText num1, num2;
+    Button add, sub, mul, div, clear;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        num1 = findViewById(R.id.num1);
+        num2 = findViewById(R.id.num2);
+
+        add = findViewById(R.id.btnAdd);
+        sub = findViewById(R.id.btnSub);
+        mul = findViewById(R.id.btnMul);
+        div = findViewById(R.id.btnDiv);
+        clear = findViewById(R.id.btnClear);
+
+        result = findViewById(R.id.txtResult);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('+');
+            }
+        });
+
+        sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('-');
+            }
+        });
+
+        mul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('*');
+            }
+        });
+
+        div.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate('/');
+            }
+        });
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num1.setText("");
+                num2.setText("");
+                result.setText("Result: ");
+                num1.requestFocus();
+            }
+        });
+    }
+
+    private void calculate(char operator) {
+
+        String value1 = num1.getText().toString().trim();
+        String value2 = num2.getText().toString().trim();
+
+        if (value1.isEmpty() || value2.isEmpty()) {
+            Toast.makeText(this,
+                    "Please enter both numbers",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            double a = Double.parseDouble(value1);
+            double b = Double.parseDouble(value2);
+            double answer = 0;
+
+            switch (operator) {
+
+                case '+':
+                    answer = a + b;
+                    break;
+
+                case '-':
+                    answer = a - b;
+                    break;
+
+                case '*':
+                    answer = a * b;
+                    break;
+
+                case '/':
+                    if (b == 0) {
+                        result.setText("Result: Cannot divide by zero");
+                        return;
+                    }
+                    answer = a / b;
+                    break;
+            }
+
+            DecimalFormat df = new DecimalFormat("0.##########");
+            result.setText("Result: " + df.format(answer));
+
+        } catch (NumberFormatException e) {
+            result.setText("Result: Invalid input");
+        }
+    }
+}
+
 
 # EXPECTED OUTPUT
+
+<img width="1600" height="821" alt="image" src="https://github.com/user-attachments/assets/683ef619-1c86-4ab9-b3df-4c37f7a1817d" />
+
 
 # APPLICATION FEATURES
 •	Simple and user-friendly interface.
